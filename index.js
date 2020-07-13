@@ -1,15 +1,14 @@
-const prompt = require('inquirer')
+const { prompt } = require('inquirer')
 const mysql = require('mysql2')
 const cTable = require('console.table')
-const db = require('./db')
 
 // establishes connection params to database
 const connection = mysql.createConnection({
  host: 'localhost',
  port: 3306,
  user: 'root',
- password: 'rootroot1',
- database: 'company_db'
+ password: 'rootroot',
+ database: 'employee_db'
 })
 
 // connecting file to database
@@ -19,7 +18,7 @@ connection.connect(function (err) {
  loadMainPrompts()
 })
 
-// start questions to ask user
+// load Main Prompts to ask user
 let loadMainPrompts = () => {
  prompt([
   {
@@ -77,7 +76,7 @@ let decision = () => {
   .then(({ decision }) => {
    switch (decision) {
     case 'Yes':
-     start()
+     loadMainPrompts()
      break
     case 'No':
      exit()
@@ -296,13 +295,13 @@ updateEmployee = () => {
  prompt([
   {
    type: 'input',
-   name: 'lastName',
-   message: `Enter the last name of the employee:`
+   name: 'firstName',
+   message: `Enter the first name of the employee:`
   },
   {
    type: 'input',
-   name: 'firstName',
-   message: `Enter the first name of the employee:`
+   name: 'lastName',
+   message: `Enter the last name of the employee:`
   },
   {
    type: 'list',
